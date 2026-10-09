@@ -20,32 +20,37 @@ def main() -> None:
 
     try:
         valid_station = SpaceStation(
-        station_id="ISS001",
-        name="International Space Station",
-        crew_size=6,
-        power_level=85.5,
-        oxygen_level=92.3,
-        last_maintenance=datetime.now()
-    )
+            station_id="ISS001",
+            name="International Space Station",
+            crew_size=6,
+            power_level=85.5,
+            oxygen_level=92.3,
+            last_maintenance=datetime.now()
+        )
 
-    if valid_station.is_operational:
-        status_str = "Operational"
-    else:
-        status_str = "Offline"
+        if valid_station.is_operational:
+            status_str = "Operational"
 
-    print("Valid station created:")
-    print(f"ID: {valid_station.station_id}")
-    print(f"Name: {valid_station.name}")
-    print(f"Crew: {valid_station.crew_size} people")
-    print(f"Power: {valid_station.power_level}%")
-    print(f"Oxygen: {valid_station.oxygen_level}%")
-    print(f"Status: {status_str}")
+        else:
+            status_str = "Offline"
 
+        print("Valid station created:")
+        print(f"ID: {valid_station.station_id}")
+        print(f"Name: {valid_station.name}")
+        print(f"Crew: {valid_station.crew_size} people")
+        print(f"Power: {valid_station.power_level}%")
+        print(f"Oxygen: {valid_station.oxygen_level}%")
+        print(f"Status: {status_str}")
+
+    except ValidationError as e:
+        print(e.errors()[0]["msg"])
+
+    print()
     print("========================================")
     print("Expected validation error:")
 
     try:
-        invalid_station = SpaceStation(
+        SpaceStation(
             station_id="ISS001",
             name="Invalid Station",
             crew_size=25,
